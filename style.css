@@ -10,6 +10,56 @@
 	}
 
 	body {
-		@apply font-ubuntu text-neutral-800 antialiased;
+		@apply bg-pink-300 font-ubuntu text-neutral-800 antialiased;
+	}
+
+	h1 {
+		@apply mt-20 text-center text-6xl tracking-widest text-white;
+	}
+
+	ul {
+		@apply list-none p-0;
+	}
+
+	li {
+		@apply relative h-11 border-b-[1px] border-solid border-slate-300 bg-slate-100 p-5 text-lg text-neutral-600;
+	}
+
+	li:nth-child(even) {
+		@apply bg-slate-100 p-5;
+	}
+
+	li span {
+		@apply block;
+	}
+
+	li span:nth-child(2) {
+		@apply mt-[6px] text-neutral-600;
+	}
+
+	li div {
+		@apply absolute top-0 right-0 w-10 cursor-pointer bg-slate-300 py-[10px] px-0 text-center font-bold;
+	}
+
+	form input {
+		@apply float-left m-0 my-0 mx-[1%] box-border block w-[38%] border-0 border-b-[1px] border-solid border-b-slate-100 p-[10px] text-lg;
+	}
+
+	form input:focus {
+		@apply border-b-4 border-solid border-fuchsia-800 pb-2 outline-none transition-all duration-200 ease-in;
+	}
+
+	form:after {
+		@apply clear-both block content-none;
+	}
+
+	button {
+		@apply w-[14%] rounded-lg border-0 bg-slate-100 p-3 font-bold tracking-wider text-neutral-600 shadow-lg;
+	}
+}
+
+@layer components {
+	.content {
+		@apply my-8 mx-auto max-w-5xl rounded-tl-lg rounded-tr-full rounded-br-lg rounded-bl-lg bg-white py-5 px-8 shadow-lg;
 	}
 }
