@@ -3,18 +3,19 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta
-			name="description"
-			content="The coffee shop Firebase Cloud Firestore project."
-		/>
+		<meta name="description" content="The Cloud Cafe Firestore project." />
 		<link rel="icon" type="image/png" href="/assets/favicon.png" />
-		<title>Coffee Shop Database</title>
+		<title>Cloud Cafe</title>
 	</head>
 	<body>
 		<h1>Cloud Cafe</h1>
 
 		<div class="content">
-			<form id="add-cafe-form"></form>
+			<form id="add-cafe-form">
+				<input type="text" name="name" placeholder="Cafe name" />
+				<input type="text" name="city" placeholder="Cafe city" />
+				<button>Add Cafe</button>
+			</form>
 
 			<ul id="cafe-list"></ul>
 		</div>
