@@ -40,7 +40,7 @@ function renderCafe(doc) {
 }
 
 /* get all documents from the cafes collection */
-const snapshot = await getDocs(collection(db, 'cafes'));
+const snapshot = getDocs(collection(db, 'cafes'));
 
 snapshot.forEach((doc) => {
 	renderCafe(doc);
