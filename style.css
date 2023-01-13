@@ -4,105 +4,58 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-	background: #eab0dc;
-	font-family: ubuntu;
+@layer base {
+	body {
+		@apply bg-pink-300;
+	}
+
+	h1 {
+		@apply mt-[80px] text-center text-6xl tracking-widest text-white;
+	}
+
+	ul {
+		@apply mt-[10px] list-none p-0;
+	}
+
+	li {
+		@apply relative border-b-[1px] border-solid border-b-slate-100 bg-slate-200 p-5 text-xl text-neutral-500;
+	}
+
+	li:nth-child(even) {
+		@apply bg-slate-100 p-5;
+	}
+
+	li span {
+		@apply block;
+	}
+
+	li span:nth-child(2) {
+		@apply mt-[6px] text-base text-neutral-600;
+	}
+
+	li div {
+		@apply absolute top-0 right-0 w-10 cursor-pointer bg-neutral-300 py-[10px] px-0 text-center font-bold;
+	}
+
+	form input {
+		@apply float-left m-0 my-0 mx-[1%] box-border block w-[38%] border-0 border-b-[1px] border-solid border-slate-100 p-[10px] text-lg;
+	}
+
+	form input:focus {
+		@apply border-b-[3px] border-solid border-pink-800 pb-2 outline-none transition-all delay-200 ease-in-out;
+	}
+
+	form:after {
+		@apply clear-both block content-none;
+	}
+
+	button {
+		@apply w-[14%] rounded-[10px] border-0 bg-slate-300 p-[13px] font-bold tracking-wider text-neutral-500 shadow-lg;
+	}
 }
 
-h1 {
-	color: #fff;
-	font-size: 64px;
-	letter-spacing: 2px;
-	margin-top: 80px;
-	text-align: center;
-}
-
-.content {
-	background: #fff;
-	max-width: 960px;
-	margin: 30px auto;
-	padding: 20px 30px;
-	border-radius: 10px 120px 10px 10px;
-	box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.1);
-}
-
-ul {
-	margin-top: 10px;
-	list-style-type: none;
-	padding: 0;
-}
-
-li {
-	padding: 20px;
-	background: #f6f6f6;
-	font-size: 20px;
-	color: #555;
-	position: relative;
-	border-bottom: 1px solid #e6e6e6;
-}
-
-li:nth-child(even) {
-	padding: 20px;
-	background: #f2f2f2;
-}
-
-li span {
-	display: block;
-}
-
-li span:nth-child(2) {
-	font-size: 16px;
-	margin-top: 6px;
-	color: #999;
-}
-
-li div {
-	position: absolute;
-	top: 0;
-	right: 0px;
-	background: rgba(255, 255, 255, 0.6);
-	width: 40px;
-	text-align: center;
-	padding: 10px 0;
-	font-weight: bold;
-	cursor: pointer;
-}
-
-form input {
-	float: left;
-	width: 38%;
-	margin: 0;
-	border: 0;
-	border-bottom: 1px solid #eee;
-	margin: 0 1%;
-	padding: 10px;
-	display: block;
-	box-sizing: border-box;
-	font-size: 18px;
-}
-
-form input:focus {
-	outline: none;
-	border-bottom: 3px solid #88236f;
-	padding-bottom: 8px;
-	transition: all ease 0.2s;
-}
-
-form:after {
-	content: '';
-	clear: both;
-	display: block;
-}
-
-button {
-	border: 0;
-	background: #fff;
-	border-radius: 10px;
-	padding: 13px;
-	width: 14%;
-	box-shadow: -1px 0px 1px rgba(0, 0, 0, 0.1);
-	font-weight: bold;
-	font-family: ubuntu;
-	letter-spacing: 1px;
-	color: #999;
+@layer components {
+	.content {
+		@apply my-[30px] mx-auto max-w-[960px] rounded-tl-[10px] rounded-tr-[120px] rounded-br-[10px] rounded-bl-[10px] bg-white py-5 px-[30px] shadow-md;
+	}
 }
