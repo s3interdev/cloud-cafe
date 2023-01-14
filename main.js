@@ -40,13 +40,10 @@ function renderCafe(doc) {
 }
 
 /* get all documents from the cafes collection */
-async function getAllDocuments() {
+(async function getDocuments() {
 	const snapshot = await getDocs(collection(db, 'cafes'));
 
 	snapshot.forEach((doc) => {
 		renderCafe(doc);
 	});
-}
-
-/* execute command functions */
-getAllDocuments();
+})();
