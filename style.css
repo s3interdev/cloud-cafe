@@ -45,7 +45,7 @@
 		@apply border-b-[3px] border-solid border-pink-800 pb-2 outline-none transition-all delay-200 ease-in-out;
 	}
 
-	form:after {
+	form::after {
 		@apply clear-both block content-none;
 	}
 
