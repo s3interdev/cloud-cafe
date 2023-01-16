@@ -7,6 +7,8 @@ import {
 	doc,
 	getDocs,
 	getFirestore,
+	query,
+	where,
 } from 'firebase/firestore';
 import './style.css';
 
@@ -63,7 +65,9 @@ function renderCafe(doc) {
 /* get all documents from the cafes collection */
 (async function getDocuments() {
 	try {
-		const snapshot = await getDocs(collection(db, 'cafes'));
+		const cafeRef = collection(db, 'cafes');
+		const qry = await query(cafeRef, where('city', '==', 'Mombasa'));
+		const snapshot = await getDocs(qry);
 
 		snapshot.forEach((doc) => {
 			renderCafe(doc);
@@ -78,12 +82,12 @@ function renderCafe(doc) {
 /* saving data to the cafes collection */
 async function addDocument() {
 	try {
-		const docRef = await addDoc(collection(db, 'cafes'), {
+		const cafeRef = await addDoc(collection(db, 'cafes'), {
 			name: form.name.value,
 			city: form.city.value,
 		});
 
-		console.log('Document written with ID: ', docRef.id);
+		console.log('Document written with ID: ', cafeRef.id);
 	} catch (err) {
 		console.error('Error adding document: ', err);
 	}
