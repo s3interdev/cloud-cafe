@@ -7,6 +7,8 @@ import {
 	doc,
 	getDocs,
 	getFirestore,
+	onSnapshot,
+	orderBy,
 	query,
 	where,
 } from 'firebase/firestore';
@@ -63,20 +65,42 @@ function renderCafe(doc) {
 }
 
 /* get all documents from the cafes collection */
-(async function getDocuments() {
-	try {
-		const cafeRef = collection(db, 'cafes');
-		const qry = await query(cafeRef, where('city', '==', 'Mombasa'));
-		const snapshot = await getDocs(qry);
+// (async function getDocuments() {
+// 	try {
+// 		const cafeRef = collection(db, 'cafes');
+// 		// const snapshot = await getDocs(cafeRef);
+// 		// const qry = await query(cafeRef, where('city', '==', 'Mombasa'));
+// 		const qry = await query(cafeRef, orderBy('name'));
+// 		const snapshot = await getDocs(qry);
 
-		snapshot.forEach((doc) => {
-			renderCafe(doc);
+// 		snapshot.forEach((doc) => {
+// 			renderCafe(doc);
+// 		});
+
+// 		console.log('Documents successfully retrieved...');
+// 	} catch (err) {
+// 		console.error('Error retrieving documents: ', err);
+// 	}
+// })();
+
+/* realtime collection data */
+(async function rtUpdates() {
+	const cafeRef = collection(db, 'cafes');
+	const qry = await query(cafeRef, orderBy('name'));
+
+	onSnapshot(qry, (snapshot) => {
+		snapshot.docChanges().forEach((change) => {
+			if (change.type === 'added') {
+				/* render item to the dom */
+				renderCafe(change.doc);
+			} else if (change.type === 'removed') {
+				let li = cafeList.querySelector('[data-id=' + change.doc.id + ']');
+
+				/* remove item from the dom */
+				cafeList.removeChild(li);
+			}
 		});
-
-		console.log('Documents successfully retrieved...');
-	} catch (err) {
-		console.error('Error retrieving documents: ', err);
-	}
+	});
 })();
 
 /* saving data to the cafes collection */
