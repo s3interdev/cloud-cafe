@@ -1,6 +1,13 @@
 /* import the functions you need from the SDKs needed */
 import { initializeApp } from 'firebase/app';
-import { addDoc, collection, getDocs, getFirestore } from 'firebase/firestore';
+import {
+	addDoc,
+	collection,
+	deleteDoc,
+	doc,
+	getDocs,
+	getFirestore,
+} from 'firebase/firestore';
 import './style.css';
 
 /* the web app's firebase configuration */
@@ -28,15 +35,29 @@ function renderCafe(doc) {
 	let li = document.createElement('li');
 	let name = document.createElement('span');
 	let city = document.createElement('span');
+	let cross = document.createElement('div');
 
 	li.setAttribute('data-id', doc.id);
 	name.textContent = doc.data().name;
 	city.textContent = doc.data().city;
+	cross.textContent = 'x';
 
 	li.appendChild(name);
 	li.appendChild(city);
+	li.appendChild(cross);
 
 	cafeList.appendChild(li);
+
+	/* click event listener for deleting documents */
+	cross.addEventListener('click', (e) => {
+		e.stopPropagation();
+
+		/* get document id */
+		let id = e.target.parentElement.getAttribute('data-id');
+
+		/* delete data */
+		deleteDocument(id);
+	});
 }
 
 /* get all documents from the cafes collection */
@@ -68,7 +89,7 @@ async function addDocument() {
 	}
 }
 
-/* click event listener */
+/* click event listener for adding documents */
 form.addEventListener('submit', (e) => {
 	e.preventDefault();
 
@@ -79,3 +100,8 @@ form.addEventListener('submit', (e) => {
 	form.name.value = '';
 	form.city.value = '';
 });
+
+/* delete document from the cafes collection */
+async function deleteDocument(id) {
+	await deleteDoc(doc(db, 'cafes', id));
+}
