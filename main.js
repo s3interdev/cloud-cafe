@@ -84,23 +84,27 @@ function renderCafe(doc) {
 // })();
 
 /* realtime collection data */
-(async function rtUpdates() {
-	const cafeRef = collection(db, 'cafes');
-	const qry = await query(cafeRef, orderBy('name'));
+(async function getDocuments() {
+	try {
+		const cafeRef = collection(db, 'cafes');
+		const qry = await query(cafeRef, orderBy('name'));
 
-	onSnapshot(qry, (snapshot) => {
-		snapshot.docChanges().forEach((change) => {
-			if (change.type === 'added') {
-				/* render item to the dom */
-				renderCafe(change.doc);
-			} else if (change.type === 'removed') {
-				let li = cafeList.querySelector('[data-id=' + change.doc.id + ']');
+		onSnapshot(qry, (snapshot) => {
+			snapshot.docChanges().forEach((change) => {
+				if (change.type === 'added') {
+					/* render item to the dom */
+					renderCafe(change.doc);
+				} else if (change.type === 'removed') {
+					let li = cafeList.querySelector('[data-id=' + change.doc.id + ']');
 
-				/* remove item from the dom */
-				cafeList.removeChild(li);
-			}
+					/* remove item from the dom */
+					cafeList.removeChild(li);
+				}
+			});
 		});
-	});
+	} catch (err) {
+		console.log('Error retrieving documents: ', err);
+	}
 })();
 
 /* saving data to the cafes collection */
@@ -131,5 +135,11 @@ form.addEventListener('submit', (e) => {
 
 /* delete document from the cafes collection */
 async function deleteDocument(id) {
-	await deleteDoc(doc(db, 'cafes', id));
+	try {
+		await deleteDoc(doc(db, 'cafes', id));
+
+		console.log('Document deleted.');
+	} catch (err) {
+		console.error('Error deleting document: ', err);
+	}
 }
